@@ -8,27 +8,29 @@ namespace rPSLSp
 {
    public class Game
     {
-        public int playerOneScore;
-        public int playerTwoScore;
-        public Player playerOne = new Player("Player", false, 0);
-        public Player playerTwo = new Player("HAL 9000", false, 0);
-        public Game (int playerOneScore, int playerTwoScore)
+        public int playerOneWins;
+        public int playerTwoWins;
+        public Player playerOne = new Player("Player", false, 0, 0);
+        public Player playerTwo = new Player("HAL 9000", false, 0, 0);
+        public Game (int playerOneWins, int playerTwoWins)
         {
-            this.playerOneScore = playerOneScore;
-            this.playerTwoScore = playerTwoScore;
+            this.playerOneWins = playerOneWins;
+            this.playerTwoWins = playerTwoWins;
         }
         public void BeginGame()
         {
             StartGame();
             SelectOpponent();
             SetGame();
-            DisplayScore();
+            DisplayWin();
             RestartGame();
         }
         public void RelaunchGame()
         {
+            playerOne.score = 0;
+            playerTwo.score = 0;
             SetGame();
-            DisplayScore();
+            DisplayWin();
             RestartGame();
         }
         public void StartGame()
@@ -59,7 +61,7 @@ namespace rPSLSp
             }
             else if (info.ToLower().Equals("machine"))
             {
-                Console.WriteLine("\r\n" + playerOne.name + ", you have elected to contest our MACHINE. " + playerOne.name + ", prepare thyself, the " + playerTwo.name + " awaits.\r\n\r\n We grow impatient, begin...\r\n\r\n ROCK PAPER SCISSORS LIZARD SPOCK!");
+                Console.WriteLine("\r\n" + playerOne.name + ", you have elected to contest our MACHINE. " + playerOne.name + ", prepare thyself,\r\nthe " + playerTwo.name + " awaits.\r\n\r\nWe grow impatient, begin...\r\n\r\nROCK PAPER SCISSORS LIZARD SPOCK!");
             }
             else
             {
@@ -69,18 +71,21 @@ namespace rPSLSp
         }
         public void SetGame()
         {
-            if (playerTwo.isHuman == true)
+            while (playerOne.score < 2 && playerTwo.score < 2)
             {
-                Console.WriteLine("\r\nHonor among thieves. DO NOT peek at your opponent entering their choice!\r\n");
-                playerOne.ChooseMove();
-                playerTwo.ChooseMove();
-                DecideOutcome();
-            }
-            else
-            {
-                playerOne.ChooseMove();
-                playerTwo.ChooseMove();
-                DecideOutcome();
+                if (playerTwo.isHuman == true)
+                {
+                    Console.WriteLine("\r\nHonor among thieves. DO NOT peek at your opponent entering their choice!\r\n");
+                    playerOne.ChooseMove();
+                    playerTwo.ChooseMove();
+                    DecideOutcome();
+                }
+                else
+                {
+                    playerOne.ChooseMove();
+                    playerTwo.ChooseMove();
+                    DecideOutcome();
+                }
             }
         }
         public void DecideOutcome()
@@ -88,13 +93,15 @@ namespace rPSLSp
             int outcome = (5 + playerOne.playerChoice - playerTwo.playerChoice) % 5;
             if (outcome == 1 || outcome == 3)
             {
-                playerOneScore++;
+                playerOne.score++;
                 Console.WriteLine(playerOne.name + ", you have played well. Enjoy thy fruits of victory.");
+                DisplayScore();
             }
             else if (outcome == 2 || outcome == 4)
             {
-                playerTwoScore++;
+                playerTwo.score++;
                 Console.WriteLine(playerTwo.name + ", you have played well. Enjoy thy fruits of victory.");
+                DisplayScore();
             }
             else
             {
@@ -104,7 +111,21 @@ namespace rPSLSp
         }
         public void DisplayScore()
         {
-            Console.WriteLine(playerOneScore + " to " + playerTwoScore);
+            Console.WriteLine(playerOne.score + " to " + playerTwo.score);
+        }
+        public void DisplayWin()
+        {
+            if (playerOne.score == 2)
+            {
+                playerOneWins++;
+                Console.WriteLine(playerOne.name + ", you have triumphed, now resplendant in our divine favor.");
+            }
+            else if (playerTwo.score == 2)
+            {
+                playerTwoWins++;
+                Console.WriteLine("\r\n\r\n" + playerTwo.name + ", you have triumphed, now resplendant in our divine favor.");
+            }
+            Console.WriteLine("\r\nThy tally rests at " + playerOneWins + " to " + playerTwoWins);
         }
         public void RestartGame()
         {

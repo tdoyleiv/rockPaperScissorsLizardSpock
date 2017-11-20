@@ -11,12 +11,14 @@ namespace rPSLSp
         public string name;
         public bool isHuman;
         public int playerChoice;
+        public int score;
         Random randomChoice = new Random();
-        public Player(string name, bool isHuman, int playerChoice)
+        public Player(string name, bool isHuman, int playerChoice, int score)
         {
             this.name = name;
             this.isHuman = isHuman;
             this.playerChoice = playerChoice;
+            this.score = score;
         }
         public void GetName()
         {
