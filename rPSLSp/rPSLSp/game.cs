@@ -10,8 +10,8 @@ namespace rPSLSp
     {
         public int playerOneWins;
         public int playerTwoWins;
-        public Player playerOne = new Player("Player", false, 0, 0);
-        public Player playerTwo = new Player("HAL 9000", false, 0, 0);
+        public Player playerOne = new Player(false, 0, "Player", 0);
+        public Player playerTwo = new Player(false, 0, "HAL 9000", 0);
         public Game (int playerOneWins, int playerTwoWins)
         {
             this.playerOneWins = playerOneWins;
@@ -25,6 +25,45 @@ namespace rPSLSp
             DisplayWin();
             RestartGame();
         }
+        public void DecideOutcome()
+        {
+            int outcome = (5 + playerOne.playerChoice - playerTwo.playerChoice) % 5;
+            if (outcome == 1 || outcome == 3)
+            {
+                playerOne.score++;
+                Console.WriteLine(playerOne.move.name + " beats " + playerTwo.move.name + ".\r\n" + playerOne.name + " has won. Enjoy thy fruits of victory.");
+                DisplayScore();
+            }
+            else if (outcome == 2 || outcome == 4)
+            {
+                playerTwo.score++;
+                Console.WriteLine(playerTwo.move.name + " beats " + playerOne.move.name + ".\r\n" + playerTwo.name + " has won. Enjoy thy fruits of victory.");
+                DisplayScore();
+            }
+            else
+            {
+                Console.WriteLine(playerOne.move.name + " and " + playerTwo.move.name + "!?\r\nBah! A tie! Shoot again mortals.");
+                SetGame();
+            }
+        }
+        public void DisplayScore()
+        {
+            Console.WriteLine(playerOne.score + " to " + playerTwo.score);
+        }
+        public void DisplayWin()
+        {
+            if (playerOne.score == 2)
+            {
+                playerOneWins++;
+                Console.WriteLine(playerOne.name + ", you have triumphed, now resplendant in our divine favor.");
+            }
+            else if (playerTwo.score == 2)
+            {
+                playerTwoWins++;
+                Console.WriteLine("\r\n\r\n" + playerTwo.name + ", you have triumphed, now resplendant in our divine favor.");
+            }
+            Console.WriteLine("\r\nThy tally rests at " + playerOneWins + " to " + playerTwoWins);
+        }
         public void RelaunchGame()
         {
             playerOne.score = 0;
@@ -33,14 +72,13 @@ namespace rPSLSp
             DisplayWin();
             RestartGame();
         }
-        public void StartGame()
+        public void RestartGame()
         {
-            Console.WriteLine("\r\nDare you play? Press Y/N");
+            Console.WriteLine("\r\nDare you play again? Press Y/N");
             ConsoleKeyInfo info = Console.ReadKey();
             if ((info.KeyChar == 'Y') || (info.KeyChar == 'y'))
             {
-                playerOne.isHuman = true;
-                playerOne.GetName();               
+                RelaunchGame();
             }
             else if ((info.KeyChar == 'N') || (info.KeyChar == 'n'))
             {
@@ -88,52 +126,14 @@ namespace rPSLSp
                 }
             }
         }
-        public void DecideOutcome()
+        public void StartGame()
         {
-            int outcome = (5 + playerOne.playerChoice - playerTwo.playerChoice) % 5;
-            if (outcome == 1 || outcome == 3)
-            {
-                playerOne.score++;
-                Console.WriteLine(playerOne.move.name + " beats " + playerTwo.move.name + ".\r\n" + playerOne.name + " has won. Enjoy thy fruits of victory.");
-                DisplayScore();
-            }
-            else if (outcome == 2 || outcome == 4)
-            {
-                playerTwo.score++;
-                Console.WriteLine(playerTwo.move.name + " beats " + playerOne.move.name + ".\r\n" + playerTwo.name + " has won. Enjoy thy fruits of victory.");
-                DisplayScore();
-            }
-            else
-            {
-                Console.WriteLine(playerOne.move.name + " and " + playerTwo.move.name + "!?\r\nBah! A tie! Shoot again mortals.");
-                SetGame();
-            }
-        }
-        public void DisplayScore()
-        {
-            Console.WriteLine(playerOne.score + " to " + playerTwo.score);
-        }
-        public void DisplayWin()
-        {
-            if (playerOne.score == 2)
-            {
-                playerOneWins++;
-                Console.WriteLine(playerOne.name + ", you have triumphed, now resplendant in our divine favor.");
-            }
-            else if (playerTwo.score == 2)
-            {
-                playerTwoWins++;
-                Console.WriteLine("\r\n\r\n" + playerTwo.name + ", you have triumphed, now resplendant in our divine favor.");
-            }
-            Console.WriteLine("\r\nThy tally rests at " + playerOneWins + " to " + playerTwoWins);
-        }
-        public void RestartGame()
-        {
-            Console.WriteLine("\r\nDare you play again? Press Y/N");
+            Console.WriteLine("\r\nDare you play? Press Y/N");
             ConsoleKeyInfo info = Console.ReadKey();
             if ((info.KeyChar == 'Y') || (info.KeyChar == 'y'))
             {
-                RelaunchGame();
+                playerOne.isHuman = true;
+                playerOne.GetName();
             }
             else if ((info.KeyChar == 'N') || (info.KeyChar == 'n'))
             {

@@ -8,23 +8,42 @@ namespace rPSLSp
 {
     public class Player
     {
-        public string name;
+        
         public bool isHuman;
         public int playerChoice;
+        Random randomChoice = new Random();
         public int score;
         public Move move = new Move("default");
-        Random randomChoice = new Random();
-        public Player(string name, bool isHuman, int playerChoice, int score)
+        public string name;
+        public Player(bool isHuman, int playerChoice, string name, int score)
         {
-            this.name = name;
             this.isHuman = isHuman;
             this.playerChoice = playerChoice;
+            this.name = name;
             this.score = score;
         }
-        public void GetName()
+        public void AssignMoveName()
         {
-            Console.WriteLine("\r\n\r\nWhat is your name, bold champion of ROCHAMBEAU?");
-            name = Console.ReadLine();
+            if (playerChoice == 0)
+            {
+                move.name = "ROCK";
+            }
+            else if (playerChoice == 1)
+            {
+                move.name = "PAPER";
+            }
+            else if (playerChoice == 2)
+            {
+                move.name = "SCISSORS";
+            }
+            else if (playerChoice == 4)
+            {
+                move.name = "LIZARD";
+            }
+            else if (playerChoice == 3)
+            {
+                move.name = "SPOCK";
+            }
         }
         public int ChooseMove()
         {
@@ -67,28 +86,10 @@ namespace rPSLSp
                 return playerChoice;
             }
         }
-        public void AssignMoveName()
+        public void GetName()
         {
-            if (playerChoice == 0)
-            {
-                move.name = "ROCK";
-            }
-            else if (playerChoice == 1)
-            {
-                move.name = "PAPER";
-            }
-            else if (playerChoice == 2)
-            {
-                move.name = "SCISSORS";
-            }
-            else if (playerChoice == 4)
-            {
-                move.name = "LIZARD";
-            }
-            else if (playerChoice == 3)
-            {
-                move.name = "SPOCK";
-            }
+            Console.WriteLine("\r\n\r\nWhat is your name, bold champion of ROCHAMBEAU?");
+            name = Console.ReadLine();
         }
     }
 }
