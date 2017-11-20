@@ -22,6 +22,14 @@ namespace rPSLSp
             StartGame();
             SelectOpponent();
             SetGame();
+            DisplayScore();
+            RestartGame();
+        }
+        public void RelaunchGame()
+        {
+            SetGame();
+            DisplayScore();
+            RestartGame();
         }
         public void StartGame()
         {
@@ -47,7 +55,7 @@ namespace rPSLSp
             {
                 playerTwo.isHuman = true;
                 playerTwo.GetName();
-                Console.WriteLine("\r\nWe GODS OF ROCHAMBEAU are pleased, mortals.\r\n\r\n" + playerOne.name + "...\r\n\r\n" + playerTwo.name + "...\r\n\r\nprepare thyselves for...\r\n\r\nROCK PAPER SCISSORS LIZARD SPOCK!");
+                Console.WriteLine("\r\nWe, the GODS OF ROCHAMBEAU, are pleased, mortals.\r\n\r\n" + playerOne.name + "...\r\n\r\n" + playerTwo.name + "...\r\n\r\nprepare thyselves for...\r\n\r\nROCK PAPER SCISSORS LIZARD SPOCK!");
             }
             else if (info.ToLower().Equals("machine"))
             {
@@ -66,16 +74,52 @@ namespace rPSLSp
                 Console.WriteLine("\r\nHonor among thieves. DO NOT peek at your opponent entering their choice!\r\n");
                 playerOne.ChooseMove();
                 playerTwo.ChooseMove();
+                DecideOutcome();
             }
             else
             {
                 playerOne.ChooseMove();
                 playerTwo.ChooseMove();
+                DecideOutcome();
             }
         }
-        //public void DecideOutcome()
-        //{
-           // decision = (5 + playerOne.playerChoice - playerTwo.playerChoice) % 5;
-        //}
+        public void DecideOutcome()
+        {
+            int outcome = (5 + playerOne.playerChoice - playerTwo.playerChoice) % 5;
+            if (outcome == 1 || outcome == 3)
+            {
+                playerOneScore++;
+                Console.WriteLine(playerOne.name + ", you have played well. Enjoy thy fruits of victory.");
+            }
+            else if (outcome == 2 || outcome == 4)
+            {
+                playerTwoScore++;
+                Console.WriteLine(playerTwo.name + ", you have played well. Enjoy thy fruits of victory.");
+            }
+            else
+            {
+                Console.WriteLine("Bah! A tie! Shoot again mortals.");
+                SetGame();
+            }
+        }
+        public void DisplayScore()
+        {
+            Console.WriteLine(playerOneScore + " to " + playerTwoScore);
+        }
+        public void RestartGame()
+        {
+            Console.WriteLine("\r\nDare you play again? Press Y/N");
+            ConsoleKeyInfo info = Console.ReadKey();
+            if ((info.KeyChar == 'Y') || (info.KeyChar == 'y'))
+            {
+                RelaunchGame();
+            }
+            else if ((info.KeyChar == 'N') || (info.KeyChar == 'n'))
+            {
+                Console.WriteLine("\r\n\r\nCoward, thou. Get thee hence, knave!");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+        }
     }
 }
