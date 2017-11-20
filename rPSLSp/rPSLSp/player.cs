@@ -35,60 +35,59 @@ namespace rPSLSp
                 if (choice.Equals("1"))
                 {
                     playerChoice = 0;
-                    move.name = "ROCK";
                 }
                 else if (choice.Equals("2"))
                 {
                     playerChoice = 1;
-                    move.name = "PAPER";
                 }
                 else if (choice.Equals("3"))
                 {
                     playerChoice = 2;
-                    move.name = "SCISSORS";
                 }
                 else if (choice.Equals("4"))
                 {
                     playerChoice = 4;
-                    move.name = "LIZARD";
                 }
                 else if (choice.Equals("5"))
                 {
                     playerChoice = 3;
-                    move.name = "SPOCK";
                 }
                 else
                 {
                     Console.WriteLine("\r\n" + name + ", you dare mock the GODS OF ROCHAMBEAU? Enter a proper choice.");
                     ChooseMove();
                 }
+                AssignMoveName();
                 return playerChoice;
             }
             else
             {
                 playerChoice = randomChoice.Next(0, 4);
-                if (playerChoice ==  0)
-                {
-                    move.name = "ROCK";
-                }
-                else if (playerChoice == 1)
-                {
-                    move.name = "PAPER";
-                }
-                else if (playerChoice == 2)
-                {
-                    move.name = "SCISSORS";
-                }
-                else if (playerChoice == 4)
-                {
-                    move.name = "LIZARD";
-                }
-                else if (playerChoice == 3)
-                {
-                    move.name = "SPOCK";
-                }
+                AssignMoveName();
                 return playerChoice;
-
+            }
+        }
+        public void AssignMoveName()
+        {
+            if (playerChoice == 0)
+            {
+                move.name = "ROCK";
+            }
+            else if (playerChoice == 1)
+            {
+                move.name = "PAPER";
+            }
+            else if (playerChoice == 2)
+            {
+                move.name = "SCISSORS";
+            }
+            else if (playerChoice == 4)
+            {
+                move.name = "LIZARD";
+            }
+            else if (playerChoice == 3)
+            {
+                move.name = "SPOCK";
             }
         }
     }
