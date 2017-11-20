@@ -12,6 +12,7 @@ namespace rPSLSp
         public bool isHuman;
         public int playerChoice;
         public int score;
+        public Move move = new Move("default");
         Random randomChoice = new Random();
         public Player(string name, bool isHuman, int playerChoice, int score)
         {
@@ -34,22 +35,27 @@ namespace rPSLSp
                 if (choice.Equals("1"))
                 {
                     playerChoice = 0;
+                    move.name = "ROCK";
                 }
                 else if (choice.Equals("2"))
                 {
                     playerChoice = 1;
+                    move.name = "PAPER";
                 }
                 else if (choice.Equals("3"))
                 {
                     playerChoice = 2;
+                    move.name = "SCISSORS";
                 }
                 else if (choice.Equals("4"))
                 {
                     playerChoice = 4;
+                    move.name = "LIZARD";
                 }
                 else if (choice.Equals("5"))
                 {
                     playerChoice = 3;
+                    move.name = "SPOCK";
                 }
                 else
                 {
@@ -60,7 +66,29 @@ namespace rPSLSp
             }
             else
             {
-                return playerChoice = randomChoice.Next(0, 4);
+                playerChoice = randomChoice.Next(0, 4);
+                if (playerChoice ==  0)
+                {
+                    move.name = "ROCK";
+                }
+                else if (playerChoice == 1)
+                {
+                    move.name = "PAPER";
+                }
+                else if (playerChoice == 2)
+                {
+                    move.name = "SCISSORS";
+                }
+                else if (playerChoice == 4)
+                {
+                    move.name = "LIZARD";
+                }
+                else if (playerChoice == 3)
+                {
+                    move.name = "SPOCK";
+                }
+                return playerChoice;
+
             }
         }
     }

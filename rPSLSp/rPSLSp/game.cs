@@ -94,18 +94,18 @@ namespace rPSLSp
             if (outcome == 1 || outcome == 3)
             {
                 playerOne.score++;
-                Console.WriteLine(playerOne.name + ", you have played well. Enjoy thy fruits of victory.");
+                Console.WriteLine(playerOne.move.name + " beats " + playerTwo.move.name + ".\r\n" + playerOne.name + " has won. Enjoy thy fruits of victory.");
                 DisplayScore();
             }
             else if (outcome == 2 || outcome == 4)
             {
                 playerTwo.score++;
-                Console.WriteLine(playerTwo.name + ", you have played well. Enjoy thy fruits of victory.");
+                Console.WriteLine(playerTwo.move.name + " beats " + playerOne.move.name + ".\r\n" + playerTwo.name + " has won. Enjoy thy fruits of victory.");
                 DisplayScore();
             }
             else
             {
-                Console.WriteLine("Bah! A tie! Shoot again mortals.");
+                Console.WriteLine(playerOne.move.name + " and " + playerTwo.move.name + "!?\r\nBah! A tie! Shoot again mortals.");
                 SetGame();
             }
         }
